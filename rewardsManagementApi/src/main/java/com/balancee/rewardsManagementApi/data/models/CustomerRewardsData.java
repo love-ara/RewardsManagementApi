@@ -15,12 +15,12 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Getter
 @Setter
-@Table(name="CustomerRewards")
+@Table(name="customer_rewards")
 @NoArgsConstructor
 public class CustomerRewardsData {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long customerId;
-    private BigDecimal totalCashBack;
+    private BigDecimal totalCashback;
     private BigDecimal currentBalance;
 }

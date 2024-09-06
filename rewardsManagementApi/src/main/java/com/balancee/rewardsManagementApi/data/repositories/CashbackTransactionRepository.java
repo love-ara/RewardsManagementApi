@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CashbackTransactionRepository extends JpaRepository<CashbackTransaction, Long> {
-    List<CashbackTransaction> findByCustomerRewardsDataCustomerId(Long id);
+    List<CashbackTransaction> findByCustomerRewardsData_CustomerId(Long id);
 }

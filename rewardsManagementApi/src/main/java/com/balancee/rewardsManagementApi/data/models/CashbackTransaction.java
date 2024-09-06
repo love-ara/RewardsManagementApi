@@ -19,7 +19,7 @@ import static java.time.LocalDateTime.now;
 @Entity
 @Setter
 @Getter
-@Table(name = "CashbackTransaction")
+@Table(name = "cashback_transaction")
 @NoArgsConstructor
 public class CashbackTransaction {
     @Id
@@ -35,7 +35,8 @@ public class CashbackTransaction {
     private LocalDateTime timeUpdated;
     private BigDecimal amountEarned;
     private String description;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
     private CustomerRewardsData customerRewardsData;
 
     @PrePersist
