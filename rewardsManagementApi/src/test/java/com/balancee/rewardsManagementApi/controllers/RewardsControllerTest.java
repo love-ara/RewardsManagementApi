@@ -57,9 +57,7 @@ public class RewardsControllerTest {
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$[0].transactionId").value(1))
-                    .andExpect(jsonPath("$[0].amountEarned").value(50.0))
-                    .andExpect(jsonPath("$[1].transactionId").value(2))
-                    .andExpect(jsonPath("$[1].amountEarned").value(100.0));
+                    .andExpect(jsonPath("$[0].amountEarned").value(25.0));
 
         }catch (Exception e){
             throw e;

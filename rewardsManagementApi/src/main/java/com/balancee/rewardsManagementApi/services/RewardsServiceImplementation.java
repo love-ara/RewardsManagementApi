@@ -9,7 +9,6 @@ import com.balancee.rewardsManagementApi.dtos.requests.GetRewardsBalanceRequest;
 import com.balancee.rewardsManagementApi.dtos.responses.GetCashbackHistoryResponse;
 import com.balancee.rewardsManagementApi.dtos.responses.GetRewardsBalanceResponse;
 import com.balancee.rewardsManagementApi.exceptions.CustomerNotFoundException;
-import com.balancee.rewardsManagementApi.exceptions.RewardsDataNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,11 @@ public class RewardsServiceImplementation implements RewardsService {
             throws CustomerNotFoundException {
         CustomerRewardsData rewardBalance= getRewardsDataBy(getRewardsBalanceRequest.getCustomerId());
 
-        return modelMapper.map(rewardBalance, GetRewardsBalanceResponse.class);
+        if(rewardBalance != null){
+            return modelMapper.map(rewardBalance, GetRewardsBalanceResponse.class);
+
+        }
+        throw new CustomerNotFoundException("Customer not found");
     }
 
     private CustomerRewardsData getRewardsDataBy(long customerId) {

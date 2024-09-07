@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class GetRewardsBalanceResponse {
+    private Long rewardsId;
     private Long customerId;
     private BigDecimal totalCashback;
     private BigDecimal currentBalance;
