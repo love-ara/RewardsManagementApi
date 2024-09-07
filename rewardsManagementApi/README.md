@@ -108,7 +108,10 @@ mvn spring-boot:run
 
 
 ### API Testing:
-API Testing with JWT. After a successful login or registration, use the returned JWT token for subsequent requests
+You can test the API using Postman. After a successful login or registration, use the returned JWT token for subsequent requests.
+
+For detailed API documentation and testing, you can refer to the Postman collection: https://documenter.getpostman.com/view/33708307/2sAXjRW9X1
+
 
 
 ### Contributions

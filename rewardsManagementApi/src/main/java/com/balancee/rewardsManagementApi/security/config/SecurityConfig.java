@@ -32,6 +32,9 @@ public class SecurityConfig {
                         CustomUsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(c->c.requestMatchers(POST, "/api/auth").permitAll()
                         .requestMatchers("/api/rewards").hasAuthority("CUSTOMER")
+                        .requestMatchers("/api/rewards").permitAll()
+                        .requestMatchers("/api/rewards/history").permitAll()
+                        .requestMatchers("/api/rewards/balance").permitAll()
                         .requestMatchers("/api/rewards/balance").hasAuthority("CUSTOMER")
                         .requestMatchers("/api/rewards/history").hasAuthority("CUSTOMER"))
                 .build();
