@@ -1,137 +1,118 @@
-# **Rewards Management API for Balanceè**
+# Rewards Management API for Balanceè
 
-The Rewards Management API is a Spring Boot application designed to manage customer reward balances and 
-cashback transaction history. This API provides endpoints for retrieving a customer's current cashback 
-balance and viewing their cashback transaction history. The application integrates security, allowing for 
+The Rewards Management API is a Spring Boot application designed to manage customer reward balances and
+cashback transaction history. This API provides endpoints for retrieving a customer's current cashback
+balance and viewing their cashback transaction history. The application integrates security, allowing for
 secure access to resources through JWT (JSON Web Token) authentication.
 
-# **Project Structure**
 
-## **_Packages_**
+## Project Setup
+### Prerequisites
+- Java 17 and higher
+- Maven
+- A database (MySQL/PostgreSQL)
+- Postman (optional for testing)
 
-### Config
+### Database Configuration
+Update the application.properties file with your database credentials:
+#### properties
+      spring.datasource.url=jdbc:mysql://localhost:3306/rewards_db
+      spring.datasource.username=your_username
+      spring.datasource.password=your_password
 
-**MapperConfig**: configures the ModelMapper to handle entity-to-DTO conversions.
 
-### Controllers
-Contains a single controller that exposes two endpoints:
-1. **Get Rewards Balance**: Retrieves the total cashback and current balance for a specific customer.
-2. **Get Cashback History**: Returns the transaction history, including cashback earned.
+## Project Structure
+### Packages
+#### Config
+- MapperConfig: Configures the ModelMapper to handle entity-to-DTO conversions. Mappers
+  Uses MapStruct for mapping between entities and DTOs.
 
-### **Data**
 
-_This package contains:_
-1. **Entities**: Classes representing database tables.
-2.  **Repositories**: Spring JPA repositories that interface with the database.
+#### Controllers
+- Contains a single controller that exposes two endpoints:
+    -  Get Rewards Balance: Retrieves the total cashback and current balance for a specific customer.
+    -  Get Cashback History: Returns the transaction history, including cashback earned.
 
-### **DTOs**
 
+#### Data
+This package contains:
+1. Entities: Classes representing database tables.
+2.  Repositories: Spring JPA repositories that interface with the database.
+
+
+#### DTOs
 Contains Data Transfer Objects used to send data to the frontend instead of raw database entities.
 
-### **Exceptions**
 
+#### Exceptions
 Includes an exception used throughout the application for error handling.
 
-### **Security**
 
+#### Security
 Contains all security-related configurations and components:
-JWTAuthFilter: Intercepts HTTP requests and extracts JWT tokens for authentication.
-PasswordConfig: Manages password encoding and decoding.
-SecurityConfig: Configures Spring Security 6, including protected routes, filters, and exception handling.
-UserAuthenticationEntryPoint: Handles unauthorized access exceptions.
-UserAuthenticationProvider: Manages JWT generation and validation.
-UsernamePasswordAuthFilter: Extracts username and password for authentication during login.
-WebConfig: Configures CORS (Cross-Origin Resource Sharing) for the API.
-Mappers
-Uses MapStruct for mapping between entities and DTOs.
+- JWTAuthFilter: Intercepts HTTP requests and extracts JWT tokens for authentication.
+- PasswordConfig: Manages password encoding and decoding.
+- SecurityConfig: Configures Spring Security 6, including protected routes, filters, and exception handling.
+- UserAuthenticationEntryPoint: Handles unauthorized access exceptions.
+- UserAuthenticationProvider: Manages JWT generation and validation.
+- UsernamePasswordAuthFilter: Extracts username and password for authentication during login.
+- WebConfig: Configures CORS (Cross-Origin Resource Sharing) for the API.
 
-### **Services**
 
+#### Services
 Contains two services:
+- Authentication Service: Manages customer authentication, credential verification, and new customer registration.
+- Rewards Service: Handles retrieving customer reward balances and cashback transaction history.
 
-**1. Authentication** Service: manages customer authentication, credential verification, and new customer registration.
 
-**2. Service**: handles retrieving customer reward balances and cashback transaction history.
+### Endpoints
+1. #### Get Rewards Balance
+- Endpoint: /api/rewards/balance
+- Method: GET
+- Request Parameters: customerId (as query parameter or path variable)
+- Response: Returns a JSON object containing:
+    - customerId: The unique identifier of the customer.
+    - totalCashback: The total amount of cashback earned.
+    - currentBalance: The available balance for cashout.
 
-##### **Endpoints**
+2. #### Get Cashback History
+- Endpoint: /api/rewards/history
+- Method: GET
+- Request Parameters: customerId (as query parameter or path variable)
+- Response: Returns a JSON array of transactions, where each transaction includes:
+    - transactionId
+    - transactionDate
+    - amountEarned
+    - description
 
-###### 1. Get Rewards Balance
 
-######    Endpoint: /api/rewards/balance
-
-######    Method: GET
-
-######  Request body: customerId 
-######  Response: Returns a JSON object containing:
-###### customerId: The unique identifier of the customer.
-###### totalCashback: The total amount of cashback earned.
-###### currentBalance: The available balance for cashout.
-
-###### 2. Get Cashback History
-
-###### Endpoint: /api/rewards/history
-######  Method: GET
-###### Request Parameters: customerId (as request body)
-######   Response: Returns a JSON array of transactions, where each transaction includes:
-###### transactionId
-   1. transactionDate
-   2. amountEarned
-   3. description
-   4. Authentication
-   
-
+### Authentication
 The application uses JWT for stateless authentication. Every request to a protected endpoint must include a JWT in the Authorization header. JWT tokens are generated and returned upon successful login and registration.
 
 Login and Registration endpoints are the only ones that do not require a token to access. After successful login or registration, the API will return a JWT that the client can use for subsequent requests.
-Security Configuration
-Stateless Application: No session is maintained by Spring. All protected resources must include a valid JWT for access.
-JWT Structure: The JWT includes user details and is sent as a Bearer token in the request header.
 
-## **How to Run the Project**
-
-**Clone the repository:**
-
-bash
-Copy code
-git clone https://github.com/love-ara/RewardsManagementApi
-Navigate to the project directory:
-
-bash
-Copy code
-cd rewards-management-api
-Run the application using Maven:
-
-bash
-Copy code
-./mvnw spring-boot:run
+#### Security Configuration
+- Stateless Application: No session is maintained by Spring. All protected resources must include a valid JWT for access.
+- JWT Structure: The JWT includes user details and is sent as a Bearer token in the request header.
 
 
-API Testing:
+## How to Run the Project**
+### Clone the repository
+      git clone https://github.com/love-ara/RewardsManagementApi
+
+### Navigate to the project directory:
+      cd rewards-management-api
+
+### Run the application using Maven:
+mvn spring-boot:run
 
 
-
-**Project Setup**
-Prerequisites
-Java 17
-Maven
-A database (MySQL/PostgreSQL)
-Postman (optional for testing)
-Database Configuration
-Update the application.properties file with your database credentials:
-
-**properties**
-Copy code
-spring.datasource.url=jdbc:mysql://localhost:3306/rewards_db
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-API Testing with JWT
-After a successful login or registration, use the returned JWT token for subsequent requests:
+### API Testing:
+API Testing with JWT. After a successful login or registration, use the returned JWT token for subsequent requests
 
 
-
-**Contributions**
+### Contributions
 We welcome contributions! If you wish to contribute:
-
-Fork the repository.
-Create a new branch for your feature or bugfix.
-Submit a pull request when ready
+- Fork the repository.
+- Create a new branch for your feature or bugfix.
+- Submit a pull request when ready
