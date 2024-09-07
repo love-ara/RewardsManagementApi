@@ -18,7 +18,7 @@ public class CustomCustomerDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = null;
         try {
-            customer = customerService.getByUsername(username);
+            customer = customerService.getCustomerByUsername(username);
         } catch (CustomerNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }

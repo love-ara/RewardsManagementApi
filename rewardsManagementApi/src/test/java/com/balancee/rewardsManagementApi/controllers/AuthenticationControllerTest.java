@@ -24,7 +24,7 @@ public class AuthenticationControllerTest {
     @Sql(scripts = "/database/data.sql")
     public void authenticateCustomerTest() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("john@email.com");
+        loginRequest.setEmail("john@email.com");
         loginRequest.setPassword("password");
         ObjectMapper mapper = new ObjectMapper();
         mockMvc.perform(post("/api/auth")
@@ -37,7 +37,7 @@ public class AuthenticationControllerTest {
     @Test
     public void testThatAuthenticationFailsForIncorrectOrInvalidCredentials() throws Exception {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("johnny@email.com");
+        loginRequest.setEmail("johnny@email.com");
         loginRequest.setPassword("password");
         ObjectMapper mapper = new ObjectMapper();
         mockMvc.perform(post("/api/auth")

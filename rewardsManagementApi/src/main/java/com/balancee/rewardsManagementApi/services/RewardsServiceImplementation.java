@@ -17,14 +17,17 @@ import java.util.List;
 
 @Service
 public class RewardsServiceImplementation implements RewardsService {
-    private final ModelMapper modelMapper;
+    private final CustomerService customerService;
     private final CashbackTransactionRepository transactionRepository;
     private final CustomerRewardsDataRepository rewardsRepository;
+    private final ModelMapper modelMapper;
+
 
     @Autowired
-    public RewardsServiceImplementation(CustomerRewardsDataRepository rewardsRepository,
+    public RewardsServiceImplementation(CustomerService customerService, CustomerRewardsDataRepository rewardsRepository,
                                         CashbackTransactionRepository transactionRepository,
                                         ModelMapper modelMapper) {
+        this.customerService = customerService;
         this.rewardsRepository = rewardsRepository;
         this.transactionRepository = transactionRepository;
         this.modelMapper = modelMapper;
@@ -49,7 +52,9 @@ public class RewardsServiceImplementation implements RewardsService {
 
     @Override
     public List<GetCashbackHistoryResponse> getCashbackHistory(GetCashbackHistoryRequest getCashbackHistoryRequest) {
+        customerService.getCustomerById(getCashbackHistoryRequest.getCustomerId());
         List<CashbackTransaction> cashTransactions = getCashbackTransactions(getCashbackHistoryRequest.getCustomerId());
+
 
         return mapTransactionsToResponse(cashTransactions);
     }

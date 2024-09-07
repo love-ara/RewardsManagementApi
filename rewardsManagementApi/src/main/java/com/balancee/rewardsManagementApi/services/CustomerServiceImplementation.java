@@ -46,7 +46,7 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    public Customer getById(long customerId) throws CustomerNotFoundException {
+    public Customer getCustomerById(long customerId) throws CustomerNotFoundException {
 
         return customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(String.format("Customer with id %d not found", customerId))
@@ -54,7 +54,7 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    public Customer getByUsername(String username) throws CustomerNotFoundException {
+    public Customer getCustomerByUsername(String username) throws CustomerNotFoundException {
         Customer customer = customerRepository.findByEmail(username)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
 

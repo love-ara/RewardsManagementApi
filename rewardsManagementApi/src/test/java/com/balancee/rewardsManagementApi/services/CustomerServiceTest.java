@@ -1,7 +1,5 @@
 package com.balancee.rewardsManagementApi.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.balancee.rewardsManagementApi.data.models.Customer;
 import com.balancee.rewardsManagementApi.dtos.requests.CreateCustomerRequest;
 import com.balancee.rewardsManagementApi.dtos.responses.CreateCustomerResponse;
@@ -38,7 +36,7 @@ public class CustomerServiceTest {
     @Test
     @DisplayName("test that user can be retrieved by id")
     public void testGetUserById() throws CustomerNotFoundException {
-        Customer customer = customerService.getById(200L);
+        Customer customer = customerService.getCustomerById(200L);
         assertThat(customer).isNotNull();
     }
 }

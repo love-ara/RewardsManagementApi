@@ -38,7 +38,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
             InputStream requestBodyStream = request.getInputStream();
 
             LoginRequest loginRequest = objectMapper.readValue(requestBodyStream, LoginRequest.class);
-            String username = loginRequest.getUsername();
+            String username = loginRequest.getEmail();
             String password = loginRequest.getPassword();
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);

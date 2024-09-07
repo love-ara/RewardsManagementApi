@@ -10,7 +10,7 @@ import com.balancee.rewardsManagementApi.exceptions.CustomerNotFoundException;
 public interface CustomerService {
     CreateCustomerResponse register(CreateCustomerRequest request);
 
-    Customer getById(long customerId) throws CustomerNotFoundException;
+    Customer getCustomerById(long customerId) throws CustomerNotFoundException;
 
-    Customer getByUsername(String username) throws CustomerNotFoundException;
+    Customer getCustomerByUsername(String username) throws CustomerNotFoundException;
 }
