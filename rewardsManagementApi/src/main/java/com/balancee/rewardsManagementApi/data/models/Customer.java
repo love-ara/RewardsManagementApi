@@ -39,7 +39,7 @@ public class Customer {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime timeUpdated;
 //    @Enumerated(EnumType.STRING)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<Authority> authorities;
 
     @PrePersist
