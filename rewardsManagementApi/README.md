@@ -1,4 +1,5 @@
-Rewards Management API for Balanceè
+# **Rewards Management API for Balanceè**
+
 The Rewards Management API is a Spring Boot application designed to manage customer reward balances and cashback transaction history. This API provides endpoints for retrieving a customer's current cashback balance and viewing their cashback transaction history. The application integrates security, allowing for secure access to resources through JWT (JSON Web Token) authentication.
 
 **Project Structure**
