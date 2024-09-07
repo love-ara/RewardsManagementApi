@@ -5,9 +5,11 @@ import com.balancee.rewardsManagementApi.dtos.requests.GetRewardsBalanceRequest;
 import com.balancee.rewardsManagementApi.dtos.responses.GetCashbackHistoryResponse;
 import com.balancee.rewardsManagementApi.dtos.responses.GetRewardsBalanceResponse;
 
+import java.util.List;
+
 public interface RewardsService {
 
     GetRewardsBalanceResponse  getRewardsBalance(GetRewardsBalanceRequest getRewardsBalanceRequest);
-    GetCashbackHistoryResponse getCashbackHistory(GetCashbackHistoryRequest getCashbackHistoryRequest);
+    List<GetCashbackHistoryResponse> getCashbackHistory(GetCashbackHistoryRequest getCashbackHistoryRequest);
 
 }
