@@ -1,8 +1,11 @@
 # **Rewards Management API for Balanceè**
 
-The Rewards Management API is a Spring Boot application designed to manage customer reward balances and cashback transaction history. This API provides endpoints for retrieving a customer's current cashback balance and viewing their cashback transaction history. The application integrates security, allowing for secure access to resources through JWT (JSON Web Token) authentication.
+The Rewards Management API is a Spring Boot application designed to manage customer reward balances and 
+cashback transaction history. This API provides endpoints for retrieving a customer's current cashback 
+balance and viewing their cashback transaction history. The application integrates security, allowing for 
+secure access to resources through JWT (JSON Web Token) authentication.
 
-**Project Structure**
+# **Project Structure**
 _Packages_
 Config
 MapperConfig: Configures the ModelMapper to handle entity-to-DTO conversions.
@@ -75,9 +78,10 @@ Run the application using Maven:
 bash
 Copy code
 ./mvnw spring-boot:run
+
+
 API Testing:
 
-Use Postman or curl to test the API endpoints. Ensure that you have a valid JWT for accessing protected endpoints.
 
 
 **Project Setup**
@@ -97,10 +101,6 @@ spring.datasource.password=your_password
 API Testing with JWT
 After a successful login or registration, use the returned JWT token for subsequent requests:
 
-bash
-Copy code
-curl --location --request GET 'http://localhost:8080/api/rewards/balance?customerId=1' \
---header 'Authorization: Bearer <your_jwt_token>'
 
 
 **Contributions**
