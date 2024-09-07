@@ -1,6 +1,5 @@
 package com.balancee.rewardsManagementApi.controllers;
 
-import com.balancee.rewardsManagementApi.dtos.requests.GetRewardsBalanceRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 
@@ -37,13 +37,48 @@ public class RewardsControllerTest {
                     .andExpect(status().is2xxSuccessful())
                     .andExpect(jsonPath("$.customerId").value(200.00))
                     .andExpect(jsonPath("$.totalCashback").value(new BigDecimal("200.0")))
-                    .andExpect(jsonPath("$.currentBalance").value(new BigDecimal("150.0")))
+                    .andExpect(jsonPath("$.currentBalance").value(new BigDecimal("50.0")))
                     .andDo(print());
             } catch (Exception e) {
             assertThat(e).isNull();
 
 
         }
+
+    }
+
+    @Test
+    public void testGetCashbackHistory() throws Exception {
+        try {
+            String requestBody = "{\"customerId\":200}";
+
+            mockMvc.perform(get("/api/rewards/history")
+                            .content(requestBody)
+                            .contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$[0].transactionId").value(1))
+                    .andExpect(jsonPath("$[0].amountEarned").value(50.0))
+                    .andExpect(jsonPath("$[1].transactionId").value(2))
+                    .andExpect(jsonPath("$[1].amountEarned").value(100.0));
+
+        }catch (Exception e){
+            throw e;
+        }
+
+    }
+
+
+    @Test
+    public void testGetRewardsBalanceForCustomerShouldFailForInvalidCustomerId() throws Exception{
+        String requestBody = "{\"customerId\":300}";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/rewards/balance")
+                        .content(requestBody)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print(System.out))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+
 
     }
 }

@@ -35,22 +35,17 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
         try {
-            //1. retrieve authentication credential from the request body
             InputStream requestBodyStream = request.getInputStream();
 
-            //2. convert the json data from 1 to java object(LoginRequest)
             LoginRequest loginRequest = objectMapper.readValue(requestBodyStream, LoginRequest.class);
             String username = loginRequest.getUsername();
             String password = loginRequest.getPassword();
 
-            //3. create an authentication obj that is not yet authenticated
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, password);
-            //4a. pass the unauthenticated authentication obj to the authenticationManager
-            //4b. Get back the authentication result from the authenticationManager
+
 
             Authentication authenticationResult = authenticationManager.authenticate(authentication);
 
-            //5. put the authentication result in the security context
             SecurityContextHolder.getContext().setAuthentication(authenticationResult);
             return authenticationResult;
 

@@ -1,9 +1,6 @@
 package com.balancee.rewardsManagementApi.data.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +17,10 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class CustomerRewardsData {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long customerId;
+    private Long rewardId;
+    @OneToOne
+    @JoinColumn(name="customer_id")
+    private Customer customer;
     private BigDecimal totalCashback;
     private BigDecimal currentBalance;
 }

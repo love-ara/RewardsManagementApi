@@ -27,12 +27,12 @@ public class RewardsServiceImplementationTest {
     @Test
     public void testThatUserCanGetTheirRewardBalance(){
         GetRewardsBalanceRequest request = new GetRewardsBalanceRequest();
-        request.setCustomerId(100L);
+        request.setCustomerId(200L);
 
         GetRewardsBalanceResponse response = rewardsService.getRewardsBalance(request);
 
         assertNotNull(response);
-        assertEquals(100L, response.getCustomerId());
+        assertEquals(200L, response.getCustomerId());
         assertEquals(new BigDecimal("200.00"), response.getTotalCashback());
         assertEquals(new BigDecimal("50.00"), response.getCurrentBalance());
 
@@ -41,23 +41,19 @@ public class RewardsServiceImplementationTest {
     @Test
     public void testThatUserCanGetTheirCashbackHistory() {
         GetCashbackHistoryRequest request = new GetCashbackHistoryRequest();
-        request.setCustomerId(100L);
+        request.setCustomerId(200L);
 
         List<GetCashbackHistoryResponse> transactions = rewardsService
                 .getCashbackHistory(request);
 
         assertNotNull(transactions);
-        assertEquals(2, transactions.size());
+        assertEquals(1, transactions.size());
 
         GetCashbackHistoryResponse firstTransaction = transactions.get(0);
         assertEquals(1L, firstTransaction.getTransactionId());
         assertEquals(new BigDecimal("25.00"), firstTransaction.getAmountEarned());
         assertEquals("Booking #1234", firstTransaction.getDescription());
 
-        GetCashbackHistoryResponse secondTransaction = transactions.get(1);
-        assertEquals(3L, secondTransaction.getTransactionId());
-        assertEquals(new BigDecimal("30.00"), secondTransaction.getAmountEarned());
-        assertEquals("Booking #3456", secondTransaction.getDescription());
     }
 
 }

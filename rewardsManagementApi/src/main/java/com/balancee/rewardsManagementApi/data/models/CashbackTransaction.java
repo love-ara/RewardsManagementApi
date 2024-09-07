@@ -37,7 +37,7 @@ public class CashbackTransaction {
     private String description;
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerRewardsData customerRewardsData;
+    private Customer customer;
 
     @PrePersist
     private void setTransactionDate(){

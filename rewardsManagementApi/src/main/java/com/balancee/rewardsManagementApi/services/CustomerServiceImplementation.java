@@ -30,16 +30,16 @@ public class CustomerServiceImplementation implements CustomerService {
 
     @Override
     public CreateCustomerResponse register(CreateCustomerRequest request) {
-        Customer user = modelMapper.map(request, Customer.class);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setAuthorities(new HashSet<>());
-        var authorities = user.getAuthorities();
-        authorities.add(Authority.USER);
+        Customer customer = modelMapper.map(request, Customer.class);
+        customer.setPassword(passwordEncoder.encode(request.getPassword()));
+        customer.setAuthorities(new HashSet<>());
+        var authorities = customer.getAuthorities();
+        authorities.add(Authority.CUSTOMER);
 
-        Customer savedUser = customerRepository.save(user);
+        Customer savedCustomer = customerRepository.save(customer);
 
 
-        var response = modelMapper.map(savedUser, CreateCustomerResponse.class);
+        var response = modelMapper.map(savedCustomer, CreateCustomerResponse.class);
         response.setMessage("Customer registered successfully");
 
         return response;
@@ -56,7 +56,7 @@ public class CustomerServiceImplementation implements CustomerService {
     @Override
     public Customer getByUsername(String username) throws CustomerNotFoundException {
         Customer customer = customerRepository.findByEmail(username)
-                .orElseThrow(() -> new CustomerNotFoundException("User not found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
 
 
         return customer;

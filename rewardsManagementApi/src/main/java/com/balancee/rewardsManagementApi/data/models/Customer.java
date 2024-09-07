@@ -38,9 +38,9 @@ public class Customer {
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime timeUpdated;
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @ElementCollection
-    private Set<Authority> authorities = new HashSet<>();
+    private Set<Authority> authorities;
 
     @PrePersist
     private void setTimeCreated() {

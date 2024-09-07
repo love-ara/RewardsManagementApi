@@ -2,6 +2,7 @@ package com.balancee.rewardsManagementApi.controllers;
 
 import com.balancee.rewardsManagementApi.dtos.requests.GetCashbackHistoryRequest;
 import com.balancee.rewardsManagementApi.dtos.requests.GetRewardsBalanceRequest;
+import com.balancee.rewardsManagementApi.exceptions.CustomerNotFoundException;
 import com.balancee.rewardsManagementApi.services.RewardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +23,12 @@ public class RewardsController {
     }
 
     @GetMapping("/balance")
-    public ResponseEntity<?> getRewardsBalance(@RequestBody GetRewardsBalanceRequest request){
+    public ResponseEntity<?> getRewardsBalance(@RequestBody GetRewardsBalanceRequest request) throws CustomerNotFoundException {
        return ResponseEntity.ok(rewardsService.getRewardsBalance(request));
     }
 
     @GetMapping("/history")
-    public ResponseEntity<?> getCashbackHistory(@RequestBody GetCashbackHistoryRequest request){
+    public ResponseEntity<?> getCashbackHistory(@RequestBody GetCashbackHistoryRequest request) throws CustomerNotFoundException{
         return ResponseEntity.ok(rewardsService.getCashbackHistory(request));
     }
 
