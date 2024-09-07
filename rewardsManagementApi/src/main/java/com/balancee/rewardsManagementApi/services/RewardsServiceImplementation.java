@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -58,6 +57,6 @@ public class RewardsServiceImplementation implements RewardsService {
     }
 
     private List<CashbackTransaction> getCashbackTransactions(long customerId) {
-        return transactionRepository.findByCustomerRewardsData_CustomerId(customerId);
+        return transactionRepository.findAllTransactionsFor(customerId);
     }
 }

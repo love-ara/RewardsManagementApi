@@ -10,42 +10,45 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
+import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static java.time.LocalDateTime.now;
 
 @Entity
-@Setter
+@Table(name="customers")
 @Getter
-@Table(name = "cashback_transaction")
+@Setter
 @NoArgsConstructor
-public class CashbackTransaction {
+public class Customer {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long transactionId;
+    public Long customerId;
+    @Column(unique = true)
+    private String email;
+    private String password;
     @Setter(AccessLevel.NONE)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime transactionDate;
+    private LocalDateTime timeCreated;
     @Setter(AccessLevel.NONE)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime timeUpdated;
-    private BigDecimal amountEarned;
-    private String description;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private CustomerRewardsData customerRewardsData;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    private Set<Authority> authorities = new HashSet<>();
 
     @PrePersist
-    private void setTransactionDate(){
-        transactionDate = now();
+    private void setTimeCreated() {
+        timeCreated = now();
     }
-
     @PreUpdate
-    private void setTimeUpdated(){
+    private void setTimeUpdated() {
         timeUpdated = now();
     }
+
 }

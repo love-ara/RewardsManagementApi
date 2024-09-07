@@ -1,10 +1,13 @@
 package com.balancee.rewardsManagementApi.data.repositories;
 
 import com.balancee.rewardsManagementApi.data.models.CashbackTransaction;
+import com.balancee.rewardsManagementApi.exceptions.CustomerNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface CashbackTransactionRepository extends JpaRepository<CashbackTransaction, Long> {
-    List<CashbackTransaction> findByCustomerRewardsData_CustomerId(Long customerId);
+    @Query("SELECT c FROM CashbackTransaction c WHERE c.customerRewardsData.customerId=:customerId")
+    List<CashbackTransaction> findAllTransactionsFor(Long customerId) throws CustomerNotFoundException;
 }
